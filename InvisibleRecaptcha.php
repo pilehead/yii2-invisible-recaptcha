@@ -96,13 +96,11 @@ class InvisibleRecaptcha extends Widget
 	 */
 	protected function _getButtons()
 	{
-		return Html::button($this->name, [
+		return Html::submitButton($this->name, [
 			'class'         => 'g-recaptcha recaptcha-' . $this->_randomString . ' ' . $this->btnClass,
 			'data-sitekey'  => Yii::$app->captcha->siteKey,
 			'data-callback' => 'recaptchaCallback_' . $this->_randomString,
 			'data-badge' => $this->badgePosition,
-		]) . Html::submitButton($this->name, [
-			'class' => $this->btnClass. ' recaptcha-' . $this->_randomString . ' submit hide'
 		]);
 	}
 
@@ -114,8 +112,6 @@ class InvisibleRecaptcha extends Widget
 	protected function _getCallbackFunction()
 	{
 		return 'var recaptchaCallback_' . $this->_randomString. ' = function() {
-			$(\'button.recaptcha-' . $this->_randomString. ':not(.submit)\').remove();
-			$(\'button.recaptcha-' . $this->_randomString. '.submit\').removeClass(\'hide\');
 			$(\'' . $this->formSelector . '\').submit();
 		}';
 	}
